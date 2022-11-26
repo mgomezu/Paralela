@@ -53,6 +53,6 @@ int main(int argc, char* argv[])
         for (int j = 0; j < N; j++) {
           printf("%d ", producto[i][j]);
         }
-          printf("\\n");
+          printf("\n");
     } 
 }
