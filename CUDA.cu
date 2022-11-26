@@ -1,13 +1,9 @@
 
 #include <stdio.h>
 #include <cuda_runtime.h>
-
-#define DIM  64
-#define XDIM  DIM
-#define YDIM  DIM
-#define MATRIXSIZE  XDIM*YDIM
-#define BLOCKSPERGRID  16
-#define NUMTHREADS DIM
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 /*****************************************************************************/
 __global__ void multMatrix(const int *A, const int *B, int *C, int numElements)
@@ -59,16 +55,16 @@ return 0;
 int main(int argc, char *argv[])
 {   
     if (argc != 3) {
-        cout << "Error en numero de parametros de entrada" << endl;
+        print("Error en numero de parametros de entrada");
         exit(0);
     }
     else {
         int N = stoi(argv[1]);
-        int NUMTHREADS = stoi(argv[2]);
-        int threadsPerBlock = (N + NUMTHREADS - 1) / NUMTHREADS;
+        int NUMTHREADS = atoi(argv[2]);
+        int BLOCKSPERGRID = 16;
         int XDIM = N;
         int YDIM = N;
-        INT MATRIXSIZE = XDIM*YDIM;
+        int MATRIXSIZE = XDIM*YDIM;
     }
     int i, v=0;
     int blocksPerGrid, threadsPerBlock;
