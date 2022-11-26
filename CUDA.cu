@@ -10,7 +10,7 @@ __global__ void multMatrix(const int *A, const int *B, int *C, int numElements, 
 {
 	int yOffset;
     int i, x;
-    __shared__ int rowAshared[XDIM][32];
+    int rowAshared[XDIM][32];
 
     int y = blockDim.x * blockIdx.x + threadIdx.x;
     int yRel = y - (blockDim.x * blockIdx.x);
