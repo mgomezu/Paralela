@@ -58,14 +58,13 @@ int main(int argc, char *argv[])
         printf("Error en numero de parametros de entrada");
         exit(0);
     }
-    else {
-        int N = atoi(argv[1]);
-        int NUMTHREADS = atoi(argv[2]);
-        int BLOCKSPERGRID = 16;
-        int XDIM = N;
-        int YDIM = N;
-        int MATRIXSIZE = XDIM*YDIM;
-    }
+	int N = atoi(argv[1]);
+	int NUMTHREADS = atoi(argv[2]);
+	int BLOCKSPERGRID = 16;
+	int XDIM = N;
+	int YDIM = N;
+	int MATRIXSIZE = XDIM*YDIM;
+    
     int i, v=0;
     int blocksPerGrid, threadsPerBlock;
     blocksPerGrid = BLOCKSPERGRID;
