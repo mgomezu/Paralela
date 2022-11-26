@@ -6,7 +6,7 @@
 #include <string.h>
 
 /*****************************************************************************/
-__global__ void multMatrix(const int *A, const int *B, int *C, int numElements)
+__global__ void multMatrix(const int *A, const int *B, int *C, int numElements, int XDIM, int YDIM)
 {
 	int yOffset;
     int i, x;
@@ -33,7 +33,7 @@ __global__ void multMatrix(const int *A, const int *B, int *C, int numElements)
 
 /*****************************************************************************/
 
-int printMatrix(int *ap)
+int printMatrix(int *ap, int XDIM, int YDIM)
 {
 	int x, y;
 	for(y = 0; y < YDIM; y++)
@@ -55,11 +55,11 @@ return 0;
 int main(int argc, char *argv[])
 {   
     if (argc != 3) {
-        print("Error en numero de parametros de entrada");
+        printf("Error en numero de parametros de entrada");
         exit(0);
     }
     else {
-        int N = stoi(argv[1]);
+        int N = atoi(argv[1]);
         int NUMTHREADS = atoi(argv[2]);
         int BLOCKSPERGRID = 16;
         int XDIM = N;
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
     threadsPerBlock = NUMTHREADS/blocksPerGrid;
     //blocksPerGrid = BLOCKS; //(numElements + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
-    multMatrix<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements);
+    multMatrix<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements, XDIM, YDIM);
     err = cudaGetLastError();
 
     if (err != cudaSuccess)
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printMatrix(h_C);
+    printMatrix(h_C, XDIM, YDIM);
 
     // Free host memory
     free(h_A);
