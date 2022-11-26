@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
     }
 
     // Launch the Vector Add CUDA Kernel
-    threadsPerBlock = NUMTHREADS/blocksPerGrid;
+    threadsPerBlock = NUMTHREADS;
     //blocksPerGrid = BLOCKS; //(numElements + threadsPerBlock - 1) / threadsPerBlock;
     printf("CUDA kernel launch with %d blocks of %d threads\n", blocksPerGrid, threadsPerBlock);
     multMatrix<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements, XDIM, YDIM);
