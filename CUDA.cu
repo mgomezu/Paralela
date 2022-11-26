@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     else {
         int N = stoi(argv[1]);
         int NUMTHREADS = stoi(argv[2]);
-        int threadsPerBlock = stoi(argv[3]);
+        int threadsPerBlock = (N + NUMTHREADS - 1) / NUMTHREADS;
         int XDIM = N;
         int YDIM = N;
         INT MATRIXSIZE = XDIM*YDIM;
