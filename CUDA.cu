@@ -10,7 +10,7 @@ __global__ void multMatrix(const int *A, const int *B, int *C, int numElements, 
 {
 	int yOffset;
     int i, x;
-    int rowAshared[XDIM][32];
+    int rowAshared[1024][32];
 
     int y = blockDim.x * blockIdx.x + threadIdx.x;
     int yRel = y - (blockDim.x * blockIdx.x);
@@ -54,16 +54,13 @@ return 0;
  */
 int main(int argc, char *argv[])
 {   
-    if (argc != 3) {
-        printf("Error en numero de parametros de entrada");
-        exit(0);
-    }
-	int N = atoi(argv[1]);
-	int NUMTHREADS = atoi(argv[2]);
-	int BLOCKSPERGRID = 16;
-	int XDIM = N;
-	int YDIM = N;
-	int MATRIXSIZE = XDIM*YDIM;
+    
+    int N = atoi(argv[1]);
+    int NUMTHREADS = atoi(argv[2]);
+    int BLOCKSPERGRID = N/NUMTHREADS;
+    int XDIM = N;
+    int YDIM = N;
+    int MATRIXSIZE = XDIM*YDIM;
     
     int i, v=0;
     int blocksPerGrid, threadsPerBlock;
