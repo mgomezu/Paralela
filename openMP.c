@@ -3,7 +3,6 @@
   
 // OpenMP header 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -22,14 +21,13 @@ void multMatrix(const int *A, const int *B, int *C, int numElements, int XDIM, i
     id = omp_get_thread_num();
     nthrds = omp_get_num_threads();  
 
-    #pragma omp for
-    for (int j = 0; j<YDIM; j++){
+    for (int j = id; j<YDIM; j=j+nthrds){
       for(x = 0; x < XDIM; x++)
       {   
           pos=(XDIM*j)+x;
           *(C + pos) = 0;
           for(i = 0; i < XDIM; i++){
-              *(C + pos) = *(C + pos) + (*(A + (x*XDIM) + i ) * (*(B + (i*YDIM) + x )));
+              *(C + pos) = *(C + pos) + (*(A + (j*XDIM) + i)  * (*(B + (i*YDIM) + x )));
           }
       }  
     }
@@ -81,7 +79,8 @@ int main(int argc, char *argv[])
         *(h_B + i) = rand() & 0xF;        
         *(h_C + i) = 0;
     }
-    
+
+	      printf("\n");
     multMatrix(h_A, h_B, h_C, numElements, XDIM, YDIM, NUMTHREADS);
 
     printMatrix(h_C, XDIM, YDIM);
