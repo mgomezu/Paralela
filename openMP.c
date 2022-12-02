@@ -21,7 +21,8 @@ void multMatrix(const int *A, const int *B, int *C, int numElements, int XDIM, i
     id = omp_get_thread_num();
     nthrds = omp_get_num_threads();  
 
-    for (int j = id; j<YDIM; j=j+nthrds){
+    #pragma omp parallel for 
+    for (int j = 0; j<YDIM; j++){
       for(x = 0; x < XDIM; x++)
       {   
           pos=(XDIM*j)+x;
