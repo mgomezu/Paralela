@@ -10,7 +10,7 @@
 #include <omp.h> 
 
 /*****************************************************************************/
-void multMatrix(const int *A, const int *B, int *C, int numElements, int XDIM, int YDIM, int num_threads)
+void multMatrix(const int *A, const int *B, int *C, int XDIM, int YDIM, int num_threads)
 {
   int i, x, j;
   
@@ -67,9 +67,7 @@ int main(int argc, char *argv[])
     int MATRIXSIZE = XDIM*YDIM;
     
     int i, v=0;
-    int numElements = MATRIXSIZE;
     size_t size = MATRIXSIZE * sizeof(int);
-    if(v == 1) printf("[Matrix mult of %d elements]\n", numElements);
 
     int *h_A = (int *)malloc(size);
     int *h_B = (int *)malloc(size);
@@ -82,7 +80,7 @@ int main(int argc, char *argv[])
     }
 
 	      printf("\n");
-    multMatrix(h_A, h_B, h_C, numElements, XDIM, YDIM, NUMTHREADS);
+    multMatrix(h_A, h_B, h_C, XDIM, YDIM, NUMTHREADS);
 
     printMatrix(h_C, XDIM, YDIM);
 
