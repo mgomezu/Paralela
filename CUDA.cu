@@ -62,6 +62,8 @@ int main(int argc, char *argv[])
     int YDIM = N;
     int MATRIXSIZE = XDIM*YDIM;
     
+    if (BLOCKSPERGRID == 0) BLOCKSPERGRID=1;
+	
     int i, v=0;
     int blocksPerGrid, threadsPerBlock;
     blocksPerGrid = BLOCKSPERGRID;
