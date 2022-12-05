@@ -34,7 +34,6 @@ return 0;
 int main(int argc, char *argv[]){   
     
     int N = atoi(argv[1]);
-    int NUMTHREADS = atoi(argv[2]);
     int XDIM = N;
     int YDIM = N;
     int MATRIXSIZE = XDIM*YDIM;
@@ -56,7 +55,7 @@ int main(int argc, char *argv[]){
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &npr);
     MPI_Comm_rank(MPI_COMM_WORLD, &pid);
-    
+
     for (int j = pid; j < YDIM; j += npr){
       for(int x = 0; x < XDIM; x++)
       {   
